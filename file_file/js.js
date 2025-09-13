@@ -19,10 +19,18 @@ document.getElementById("bmiForm").addEventListener("submit", function(e) {
         let kategori = "";
         let cssClass = "";
 
+        function getBMICategoryForAge(bmi, umur, gender) {
+            if (bmi < 14) return { kategori: "Underweight", css: "underweight" };
+            else if (bmi < 20) return { kategori: "Normal", css: "normal" };
+            else if (bmi < 23) return { kategori: "Overweight", css: "overweight" };
+            else return { kategori: "Obese", css: "obese" };
+        }
+
        
         if (umur < 20) {
-            kategori = "Gunakan BMI-for-Age percentile (khusus anak & remaja)";
-            cssClass = "warning";
+            let result = getBMICategoryForAge(bmi, umur, gender);
+            kategori = result.kategori;
+            cssClass = result.css;
         } else if (umur >= 65) {
             if (bmi < 23) { kategori = "Underweight"; cssClass = "underweight"; }
             else if (bmi <= 27) { kategori = "Normal"; cssClass = "normal"; }
